@@ -1,0 +1,31 @@
+version: '3.9'
+
+services:
+  kotlinapp:
+    container_name: kotlinapp
+    build: # this is the build context: .
+      context: .
+      dockerfile: Dockerfile
+      args: # these are the arguments that are passed to the dockerfile
+        PG_URL: jdbc:postgresql://db:5432/CICD_DB
+#        PG_USER: ${PG_USER}
+#        PG_PASSWORD: ${PG_PASSWORD}
+    ports: # port exposed to the host machine
+      - "8080:8081"
+    environment: # these are the environment variables that are passed to the dockerfile
+      PG_URL: jdbc:postgresql://db:5432/CICD_DB
+#      PG_USER: postgres
+#      PG_PASSWORD: postgres
+    depends_on: # this is the dependency on the db service
+      - db
+  db:
+    container_name: db
+    image: postgres:12
+    env_file: ./.env # environment variables file
+    ports: # port exposed to the host machine
+      - "54321:5432"
+    volumes: # volume used to persist data
+      - pgdata:/var/lib/postgresql/data
+#      - ./init.sql:/data/application/init.sql
+volumes: # volume creation
+  pgdata: {}
