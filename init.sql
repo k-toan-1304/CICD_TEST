@@ -7,4 +7,4 @@ CREATE TABLE "CICD_DB".user (
 );
 
 INSERT INTO users(name, email)
-VALUES ('a', 'a@gmail.com'), ('b', 'b@gmail.com');
+VALUES ('a', 'a@gmail.com'), ('b', 'b@gmail.com'), ('c', 'c@mail.com');
